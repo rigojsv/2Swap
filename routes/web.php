@@ -5,10 +5,9 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
 
 
-
 Route::get('/', function () {
     return view('index');
-});
+})->name('index');
 Route::get('/about', function () {
     return view('about');
 });

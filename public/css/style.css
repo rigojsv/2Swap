@@ -1,0 +1,259 @@
+/*font type*/
+*{
+    box-sizing: border-box;
+}
+
+body,
+ul,
+li,
+p,
+a,
+label,
+input,
+div {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px !important;
+    font-weight: 300 !important;
+}
+
+.h1 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 48px !important;
+    font-weight: 200 !important;
+}
+
+.h2 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px !important;
+    font-weight: 300;
+}
+
+.h3 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 22px !important;
+}
+
+/* General */
+.logo {
+    font-weight: 500 !important;
+}
+
+.text-warning {
+    color: #ede861 !important;
+}
+
+.text-muted {
+    color: #bcbcbc !important;
+}
+
+.text-success {
+    color: #87CEEB !important;
+}
+
+.text-light {
+    color: #cfd6e1 !important;
+}
+
+.bg-dark {
+    background-color: #212934 !important;
+}
+
+.bg-light {
+    background-color: #e9eef5 !important;
+}
+
+.bg-black {
+    background-color: #1d242d !important;
+}
+
+.bg-success {
+    background-color: #87CEEB !important;
+}
+
+.btn-success {
+    background-color: #87CEEB !important;
+    border-color: #87CEEB !important;
+}
+
+.pagination .page-link:hover {
+    color: #000;
+}
+
+.pagination .page-link:hover,
+.pagination .page-link.active {
+    background-color: #87CEEB;
+    color: #fff;
+}
+
+/*Nav*/
+#main-nav a {
+    color: #212934;
+}
+
+#main-nav a:hover {
+    color: #87CEEB;
+}
+
+#main-nav .navbar .nav-icon {
+    margin-right: 20px;
+}
+
+/*Carousel*/
+.carousel-indicators button {
+    background-color: #87CEEB !important;
+}
+
+.carousel-control-next i,
+.carousel-control-prev i {
+    color: #87CEEB !important;
+    font-size: 2.8rem !important;
+}
+
+
+/*Categorias*/
+
+.img-cat{
+    width: 342px;
+    height: 342px;
+}
+
+/*Footer*/
+footer a {
+    color: #dcdde1;
+}
+
+footer a:hover {
+    color: #87CEEB;
+}
+    
+
+footer ul.footer-link-list li {
+    padding-top: 10px;
+}
+
+footer ul.footer-icons li {
+    width: 2.6em;
+    height: 2.6em;
+    line-height: 2.6em;
+}
+
+footer ul.footer-icons li:hover {
+    background-color: #87CEEB;
+    transition: .5s;
+}
+
+footer ul.footer-icons li:hover i {
+    color: #212934;
+    transition: .5s;
+}
+
+footer .border-light {
+    border-color: #2d343f !important;
+}
+
+
+
+/*About*/
+
+.logoalter{
+    width: 400px;
+    height: 400px;
+}
+
+
+/*Shop*/
+.img-shop {
+    min-height: 302px;
+    justify-content: center;
+}
+.product-wap {
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.10);
+}
+.product-wap .product-color-dot.color-dot-red {
+    background:#f71515;
+}
+.product-wap .product-color-dot.color-dot-blue {
+    background:#6db4fe;
+}
+.product-wap .product-color-dot.color-dot-black {
+    background:#000000;
+}
+.product-wap .product-color-dot.color-dot-light {
+    background:#e0e0e0;
+}
+.product-wap .product-color-dot.color-dot-green {
+    background:#0bff7e;
+}
+.card.product-wap .card .product-overlay {
+    background: rgba(0,0,0,.2);
+    visibility: hidden;
+    opacity: 0;
+    transition: .3s;
+}
+.card.product-wap:hover .card .product-overlay {
+    visibility: visible;
+    opacity: 1;
+}
+.card.product-wap a {
+    color: #000;
+}
+
+
+
+/*SHOP SINGLE*/
+
+.img-product{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.img-product-l{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.img-prod-bg{
+    height: 508px;
+    max-height: 508px;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+
+
+/*// Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {
+    #main-nav .navbar-nav {
+        max-width: 450px;
+    }
+}
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {
+    #main-nav .navbar-nav {
+        max-width: 550px;
+    }
+
+    #template-mo-zay-hero-carousel .carousel-item {
+        min-height: 30rem !important;
+    }
+
+    .product-wap .h3,
+    .product-wap li,
+    .product-wap i,
+    .product-wap p {
+        font-size: 18px !important;
+    }
+
+    .product-wap .product-color-dot {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {}
+

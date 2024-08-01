@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Cart;
+
 use Illuminate\Http\Request;
 use App\Models\Transaction;
+use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
-use App\Models\CartItem;
-
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 class PaymentController extends Controller
 {
     public function showPaymentPage()
@@ -24,8 +26,9 @@ class PaymentController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
-            'phone' => 'required|string|max:10',
-            'zip' => 'required|string|max:5',
+            'phone' => 'required|string|size:10',
+            'zip' => 'required|string|size:5',
+            'instructions' => 'nullable|string',
             'card_number' => 'required|string|size:16',
             'expiry_date' => 'required|string|size:5',
             'cvc' => 'required|string|size:3',
@@ -35,13 +38,10 @@ class PaymentController extends Controller
         $cart = Cart::where('user_id', Auth::id())->first();
 
         if (!$cart || $cart->items->isEmpty()) {
-            return redirect()->back()->withErrors(['cart' => 'No hay artículos en el carrito.']);
+            return redirect()->route('cart.view')->with('error', 'No hay artículos en el carrito.');
         }
 
-        // Procesar el pago (aquí iría la lógica del procesador de pagos)
-        // ...
-
-        // Crear la transacción en la base de datos
+        // Guardar la transacción para cada ítem del carrito
         foreach ($cart->items as $item) {
             Transaction::create([
                 'user_id' => Auth::id(),
@@ -52,9 +52,10 @@ class PaymentController extends Controller
             ]);
         }
 
-        // Vaciar el carrito
-        CartItem::where('cart_id', $cart->id)->delete();
-
-        return redirect()->route('dashboard')->with('success', 'Pago realizado exitosamente y transacción guardada.');
+        // Vaciar el carrito después del pago
+        $cart->items()->delete();
+        
+        // Mostrar mensaje de éxito
+        return redirect()->route('orders.index')->with('success', 'Pago realizado con éxito. ¡Gracias por su compra!');
     }
 }

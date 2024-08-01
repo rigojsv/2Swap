@@ -26,7 +26,7 @@
                 @endif
 
                 {{-- Formulario de pago --}}
-                <form action="{{ route('payment.process') }}" method="POST" id="payment-form">
+                <form action="{{ route('paymentcart.process') }}" method="POST" id="payment-form">
                     @csrf
 
                     <div class="mb-4">

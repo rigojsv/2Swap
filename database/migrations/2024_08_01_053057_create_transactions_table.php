@@ -8,19 +8,18 @@ class CreateTransactionsTable extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('product_id');
-            $table->decimal('amount', 10, 2);
-            $table->string('name');
-            $table->string('address');
-            $table->string('phone');
-            $table->string('zip');
-            $table->text('instructions')->nullable();
+            $table->integer('quantity');
+            $table->decimal('total', 10, 2);
+            $table->string('status')->default('pending');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -30,8 +29,10 @@ class CreateTransactionsTable extends Migration
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('transactions');
     }

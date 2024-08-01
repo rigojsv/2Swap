@@ -64,7 +64,7 @@ Route::middleware([
 
 
     //procesar pago carrito
-    Route::post('/paymentcart/process', [PaymentController::class, 'processPayment'])->name('payment.process');
+    Route::post('/paymentcart/process', [PaymentController::class, 'processPayment'])->name('paymentcart.process');
 
 // Ruta para mostrar los pedidos del usuario
     

@@ -3,14 +3,14 @@
         <div class="container d-flex justify-content-between align-items-center">
 
             <a class="navbar-brand text-success logo h1 align-self-center" href="/">
-                <img src="{{asset('img/logo.png')}}" style="width: 160px; height: 60px;">
+                <img src="{{ asset('img/logo.png') }}" style="width: 160px; height: 60px;">
             </a>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="main-nav">
+            <div class="align-self-center collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between" id="main-nav">
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
@@ -23,14 +23,14 @@
                             <a class="nav-link" href="/shop">Tienda</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/contact">Contactanos</a>
+                            <a class="nav-link" href="/contact">Contáctanos</a>
                         </li>
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
                     <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
                         <div class="input-group">
-                            <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
+                            <input type="text" class="form-control" id="inputMobileSearch" placeholder="Buscar ...">
                             <div class="input-group-text">
                                 <i class="fa fa-fw fa-search"></i>
                             </div>
@@ -41,8 +41,15 @@
                     </a>
                     <a class="nav-icon position-relative text-decoration-none" href="/cart">
                         <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
-                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">4</span>
+                        @if (session('cart'))
+                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">
+                            {{ session('cart') }}
+                        </span>
+                        @else
+                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">0</span>
+                        @endif
                     </a>
+
 
                     @if (Route::has('login'))
                     <nav class="-mx-3 flex flex-1 justify-end">
@@ -52,13 +59,13 @@
                             <span>{{ auth()->user()->name }}</span>
                         </a>
                         @else
-                        <a class="nav-icon position-relative text-decoration-none" href="{{route('register')}}">
+                        <a class="nav-icon position-relative text-decoration-none" href="{{ route('register') }}">
                             <i class="fa fa-fw fa-user text-dark mr-3"></i>
                         </a>
                         @endauth
                     </nav>
                     @endif
-                    
+
                 </div>
             </div>
         </div>

@@ -47,7 +47,7 @@
                     @if (Route::has('login'))
                     <nav class="-mx-3 flex flex-1 justify-end">
                         @auth
-                        <a class="nav-icon position-relative text-decoration-none" href="{{ url('/dashboard') }}">
+                        <a class="nav-icon position-relative text-decoration-none" href="{{ url('/orders') }}">
                             <i class="fa fa-fw fa-user text-dark mr-3"></i>
                             <span>{{ auth()->user()->name }}</span>
                         </a>

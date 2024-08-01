@@ -8,36 +8,26 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
-                <!-- Tabla de pedidos -->
-                <table class="min-w-full bg-white">
-                    <thead>
-                        <tr>
-                            <th class="w-1/6 px-4 py-2 text-left text-gray-600 font-semibold">Imagen</th>
-                            <th class="w-1/6 px-4 py-2 text-left text-gray-600 font-semibold">ID del Pedido</th>
-                            <th class="w-1/6 px-4 py-2 text-left text-gray-600 font-semibold">Fecha</th>
-                            <th class="w-1/6 px-4 py-2 text-left text-gray-600 font-semibold">Estado</th>
-                            <th class="w-1/6 px-4 py-2 text-left text-gray-600 font-semibold">Total</th>
-                            <th class="w-1/6 px-4 py-2 text-left text-gray-600 font-semibold">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Repetir este bloque para cada pedido -->
-                        <tr class="border-b hover:bg-gray-100">
-                            <td class="px-4 py-2">
-                                <img src="ruta-de-la-imagen-del-producto.jpg" alt="Nombre del producto" class="w-16 h-16 object-cover rounded-lg">
-                            </td>
-                            <td class="px-4 py-2 text-gray-700">12345</td>
-                            <td class="px-4 py-2 text-gray-700">31/07/2024</td>
-                            <td class="px-4 py-2 text-gray-700">Completado</td>
-                            <td class="px-4 py-2 text-gray-700">$50.00</td>
-                            <td class="px-4 py-2 text-gray-700">
-                                <a href="#" class="text-blue-500 hover:text-blue-700">Ver detalles</a>
-                            </td>
-                        </tr>
-                        <!-- Fin del bloque repetible -->
-                    </tbody>
-                </table>
-                <!-- Fin de la tabla de pedidos -->
+                @if (session('success'))
+                    <div class="bg-green-500 text-white p-4 mb-4 rounded-md shadow-md">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    @forelse($orders as $order)
+                        <div class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
+                            <div class="mt-4">
+                                <h3 class="text-lg font-semibold text-gray-800">{{ $order->product->name }}</h3>
+                                <p class="text-gray-600 mt-2">Fecha: {{ $order->created_at->format('d/m/Y') }}</p>
+                                <p class="text-gray-700 mt-4">{{ Str::limit($order->product->description, 100, '...') }}</p>
+                                <p class="text-sm font-semibold">Monto: L. {{ number_format($order->amount, 2) }}</p>
+                            </div>
+                        </div>
+                    @empty
+                        <p class="text-center text-gray-500">No hay pedidos realizados.</p>
+                    @endforelse
+                </div>
             </div>
         </div>
     </div>

@@ -8,22 +8,26 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
-
-                <!-- Lista de publicaciones -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Repetir este bloque para cada publicación -->
-                    <div class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
-                        <img src="ruta-de-la-imagen-del-producto.jpg" alt="Nombre del producto" class="w-full h-32 object-cover rounded-t-lg">
-                        <div class="mt-4">
-                            <h3 class="text-lg font-semibold text-gray-800">Título de la Publicación</h3>
-                            <p class="text-gray-600 mt-2">Fecha: 31/07/2024</p>
-                            <p class="text-gray-700 mt-4">Descripción corta de la publicación...</p>
-                            <a href="#" class="text-blue-500 hover:text-blue-700 mt-4 inline-block">Leer más</a>
-                        </div>
+                @if (session('success'))
+                    <div class="bg-green-500 text-white p-4 mb-4 rounded-md shadow-md">
+                        {{ session('success') }}
                     </div>
-                    <!-- Fin del bloque repetible -->
+                @endif
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    @forelse($sales as $sale)
+                        <div class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
+                            <div class="mt-4">
+                                <h3 class="text-lg font-semibold text-gray-800">{{ $sale->product->name }}</h3>
+                                <p class="text-gray-600 mt-2">Fecha: {{ $sale->created_at->format('d/m/Y') }}</p>
+                                <p class="text-gray-700 mt-4">{{ Str::limit($sale->product->description, 100, '...') }}</p>
+                                <p class="text-sm font-semibold">Monto: L. {{ number_format($sale->amount, 2) }}</p>
+                            </div>
+                        </div>
+                    @empty
+                        <p class="text-center text-gray-500">No hay ventas realizadas.</p>
+                    @endforelse
                 </div>
-                <!-- Fin de la lista de publicaciones -->
             </div>
         </div>
     </div>

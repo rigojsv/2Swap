@@ -5,6 +5,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SalesController;
 
 Route::get('/', function () {
     return view('index');
@@ -42,24 +44,31 @@ Route::middleware([
 
 
     //Dashboard
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/sales', [SalesController::class, 'index'])->name('sales.index');
     Route::get('/publications', [ProductController::class, 'myPublications'])->name('publications');
     Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
-    Route::get('/sells', function () {
-        return view('sells');
-    })->name('mysells');
+   
 
 
     //Pagos del carrito
     Route::get('/paymentcart', [PaymentController::class, 'showPaymentPage'])->name('payment.cart');
-    Route::post('/payment', [PaymentController::class, 'processPayment'])->name('payment.process');
+    
     Route::post('/paymentcart', [ProductController::class, 'cartPayment'])->name('cart.payment');
 
     //agregar producto y cobro del mismo
     Route::get('/newproduct', [ProductController::class, 'create'])->name('product.create');
     Route::post('/newproduct', [ProductController::class, 'store'])->name('product.store');
     Route::get('/pago', [ProductController::class, 'showPaymentPage'])->name('payment.page');
+    Route::post('/payment', [ProductController::class, 'processPayment'])->name('payment.process');
+
+
+    //procesar pago carrito
+    Route::post('/paymentcart/process', [PaymentController::class, 'processPayment'])->name('payment.process');
+
+// Ruta para mostrar los pedidos del usuario
+    
+
+// Ruta para mostrar las ventas del vendedor
+    
 });

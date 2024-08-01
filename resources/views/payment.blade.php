@@ -43,6 +43,7 @@
             <form action="{{ route('payment.process') }}" method="POST">
                 @csrf
 
+                <input type="hidden" name="price_range" value="{{ $amount }}">
                 <div class="mb-4">
                     <label for="cardholder_name" class="block text-gray-700 font-medium">Nombre del Titular</label>
                     <input type="text" name="cardholder_name" id="cardholder_name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm px-3 py-2" required>

@@ -102,25 +102,38 @@ private function calculateAmount($price)
             'price_range' => 'required|integer',
         ]);
 
-        // Determinar el monto basado en el rango de precio
-        $priceRanges = [
-            1 => 10,
-            2 => 50,
-            3 => 100,
-            4 => 500,
-        ];
-
         $selectedRange = $request->input('price_range');
-        $amount = $priceRanges[$selectedRange] ?? 0;
-
         // Simular el proceso de pago aquí
         $pago_exitoso = true;  // Cambia esto por la lógica real de pago
 
         if ($pago_exitoso) {
             session()->forget('product');
-            return redirect()->route('product.create')->with('success', 'Producto publicado con éxito! Pago de L ' . number_format($amount, 2) . ' realizado.');
+            return redirect()->route('product.create')->with('success', 'Producto publicado con éxito! Pago de L ' . number_format($selectedRange, 2) . ' realizado.');
         } else {
             return redirect()->route('payment.page')->with('error', 'Error en el pago.');
         }
     }
+
+    public function myPublications()
+    {
+        // Obtener el usuario autenticado
+        $user = auth()->user();
+
+        // Obtener los productos creados por el usuario
+        $products = Product::where('user_id', $user->id)->get();
+
+        // Pasar los productos a la vista
+        return view('publications', compact('products'));
+    }
+
+    public function destroy($id)
+{
+    $user = auth()->user();
+    $product = Product::where('user_id', $user->id)->findOrFail($id);
+
+    // Eliminar el producto
+    $product->delete();
+
+    return redirect()->route('publications')->with('success', 'Publicación eliminada con éxito.');
+}
 }

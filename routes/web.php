@@ -48,9 +48,13 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    route::get('/publications', function() {
-        return view('publications');
-    })->name('publications');
+    Route::get('/publications', [ProductController::class, 'myPublications'])->name('publications');
+
+    Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+
+    Route::get('/sells', function () {
+        return view('sells');
+    })->name('mysells');
 
     Route::get('/newproduct', function () {
         return view('newproduct');

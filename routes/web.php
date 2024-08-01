@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\PaymentController;
 
 Route::get('/', function () {
     return view('index');
@@ -44,6 +45,8 @@ Route::middleware([
 
     Route::post('/newproduct', [ProductController::class, 'store'])->name('product.store');
 
+    Route::post('/paymentcart', [ProductController::class, 'cartPayment'])->name('cart.payment');
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
@@ -72,6 +75,8 @@ Route::middleware([
     
     // Ruta para procesar el pago
     Route::post('/pago', [ProductController::class, 'processPayment'])->name('payment.process');
+    Route::get('/payment', [PaymentController::class, 'showPaymentPage'])->name('payment.page');
+    Route::post('/payment', [PaymentController::class, 'processPayment'])->name('payment.process');
     
     });
 });

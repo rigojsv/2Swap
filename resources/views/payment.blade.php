@@ -28,7 +28,7 @@
 
                 {{-- Mostrar la imagen del producto --}}
                 @if (!empty(json_decode($product->images)[0]))
-                    <div class="mt-4">
+                    <div class="mt-4" style="width: 500px; height: auto;">
                         <img src="{{ json_decode($product->images)[0] }}" alt="Imagen del producto" class="w-full h-auto border border-gray-300 rounded-md shadow-md">
                     </div>
                 @endif

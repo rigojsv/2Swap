@@ -33,6 +33,8 @@ class CartController extends Controller
             ]);
         }
 
+        session(['cart' => $cart->items()->count()]);
+
         return redirect()->back()->with('success', 'Producto agregado al carrito');
     }
 
@@ -54,8 +56,12 @@ public function removeCartItem($itemId)
 
     // Elimina el ítem del carrito
     $cartItem->delete();
-
+    session(['cart' => $cart->items()->count()]);
     return redirect()->back()->with('success', 'Ítem eliminado del carrito');
+
+  
 }
+
+
 
 }

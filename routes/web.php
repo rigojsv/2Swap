@@ -7,10 +7,10 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SalesController;
+use App\Http\Controllers\CommentController;
 
-Route::get('/', function () {
-    return view('index');
-})->name('index');
+Route::get('/', [ProductController::class, 'index'])->name('index');
+
 Route::get('/about', function () {
     return view('about');
 });
@@ -40,14 +40,17 @@ Route::middleware([
     Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
     Route::post('/cart/update/{itemId}', [CartController::class, 'updateCartItem'])->name('cart.update');
     Route::delete('/cart/remove/{itemId}', [CartController::class, 'removeCartItem'])->name('cart.remove');
-
+    Route::post('/products/{product}/comments', [CommentController::class, 'store'])->name('comments.store');
 
 
     //Dashboard
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::put('/order/{id}/mark-received', [OrderController::class, 'markReceived'])->name('order.markReceived');
     Route::get('/sales', [SalesController::class, 'index'])->name('sales.index');
     Route::get('/publications', [ProductController::class, 'myPublications'])->name('publications');
     Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+    Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('product.edit');
+    Route::put('/product/{id}', [ProductController::class, 'update'])->name('product.update');
    
 
 

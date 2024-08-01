@@ -145,90 +145,34 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 col-md-4 mb-4">
+                        @foreach($topRatedProducts as $product)
+                        <div class="col-12 col-md-4 mb-4">
                         <div class="card h-100">
-                            <a href="shop-single.html">
-                                <img src="img/Tecnologia/iphone-card-40-iphone15hero-202309_FMT_WHH.jpg"
-                                    class="card-img-top" alt="...">
+                            <a href="{{ route('shop.show', $product->id) }}">
+                                <img src="{{ json_decode($product->images, true)[0] }}" class="card-img-top" alt="{{ $product->name }}">
                             </a>
                             <div class="card-body">
                                 <ul class="list-unstyled d-flex justify-content-between">
                                     <li>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-muted fa fa-star"></i>
-                                        <i class="text-muted fa fa-star"></i>
+                                        @for($i = 0; $i < floor($product->comments_avg_rating); $i++)
+                                            <i class="text-warning fa fa-star"></i>
+                                        @endfor
+                                        @if($product->comments_avg_rating - floor($product->comments_avg_rating) >= 0.5)
+                                            <i class="text-warning fa fa-star-half-alt"></i>
+                                        @endif
+                                        @for($i = 0; $i < 5 - ceil($product->comments_avg_rating); $i++)
+                                            <i class="text-muted fa fa-star"></i>
+                                        @endfor
                                     </li>
-                                    <li class="text-muted text-right">L 24,000.00</li>
+                                    <li class="text-muted text-right">L {{ number_format($product->price, 2) }}</li>
                                 </ul>
-                                <a href="shop-single.html" class="h2 text-decoration-none text-dark">iPhone 15</a>
-                                <p class="card-text">
-                                    El nuevo iPhone 15 combina innovación y elegancia. Con su cámara avanzada y su
-                                    rendimiento superior, es el smartphone perfecto para los amantes de la tecnología.
-                                </p>
-                                <p class="text-muted">Reviews (150)</p>
+                                <a href="{{ route('shop.show', $product->id) }}" class="h2 text-decoration-none text-dark">{{ $product->name }}</a>
+                                <p class="card-text">{{ Str::limit($product->description, 100) }}</p>
+                                <p class="text-muted">Reviews ({{ $product->comments_count }})</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-md-4 mb-4">
-                        <div class="card h-100">
-                            <a href="shop-single.html">
-                                <img src="img/Zapatos/NIke/dunk-low-zapatillas-15mQNw.png" class="card-img-top"
-                                    alt="...">
-                            </a>
-                            <div class="card-body">
-                                <ul class="list-unstyled d-flex justify-content-between">
-                                    <li>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-muted fa fa-star"></i>
-                                        <i class="text-muted fa fa-star"></i>
-                                    </li>
-                                    <li class="text-muted text-right">L 3,500.00</li>
-                                </ul>
-                                <a href="shop-single.html" class="h2 text-decoration-none text-dark"> Nike Dunk Low</a>
-                                <p class="card-text">
-                                    Experimenta la comodidad y el estilo con los Cloud Nike Shoes. Perfectos para
-                                    cualquier
-                                    ocasión, estos zapatos ofrecen un diseño elegante y una durabilidad incomparable.
-                                </p>
-                                <p class="text-muted">Reviews (48)</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 mb-4">
-                        <div class="card h-100">
-                            <a href="shop-single.html">
-                                <img src="img/Tecnologia/MSI.jpg" class="card-img-top" alt="...">
-                            </a>
-                            <div class="card-body">
-                                <ul class="list-unstyled d-flex justify-content-between">
-                                    <li>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-warning fa fa-star"></i>
-                                    </li>
-                                    <li class="text-muted text-right">L 45,000.00</li>
-                                </ul>
-                                <a href="shop-single.html" class="h2 text-decoration-none text-dark">MSI Gaming
-                                    Laptop</a>
-                                <p class="card-text">
-                                    La MSI Gaming Laptop ofrece un rendimiento excepcional con su procesador Intel Core
-                                    i7
-                                    de última generación y su tarjeta gráfica NVIDIA GeForce RTX 3060. Diseñada para los
-                                    entusiastas de los videojuegos y los profesionales, esta laptop combina potencia y
-                                    portabilidad en un elegante chasis de aluminio. Con una pantalla de 15.6" FHD y una
-                                    tasa
-                                    de refresco de 144Hz, disfrutarás de gráficos fluidos y detallados en cada juego.
-                                </p>
-                                <p class="text-muted">Reviews (74)</p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </section>

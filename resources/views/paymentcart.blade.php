@@ -41,8 +41,8 @@
 
                     <div class="mb-4">
                         <label for="phone" class="block text-gray-700">Número de Teléfono</label>
-                        <input type="tel" name="phone" id="phone" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" pattern="[0-9]{10}" required>
-                        <small class="text-gray-500">Ingrese un número de teléfono válido (10 dígitos).</small>
+                        <input type="tel" name="phone" id="phone" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" pattern="[0-9]{8}" required>
+                        <small class="text-gray-500">Ingrese un número de teléfono válido (8 dígitos).</small>
                     </div>
 
                     <div class="mb-4">

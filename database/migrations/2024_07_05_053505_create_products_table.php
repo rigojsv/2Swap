@@ -19,14 +19,14 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamp('publication_date')->useCurrent();
-            $table->json('images')->nullable(); // Nuevo campo para las imágenes
+            $table->json('images')->nullable(); // Campo para las imágenes
+            $table->string('status')->default('available'); // Nuevo campo para el estado del producto
             $table->timestamps();
         
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });
-}
-
+    }
 
     /**
      * Reverse the migrations.

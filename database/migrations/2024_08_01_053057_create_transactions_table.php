@@ -1,25 +1,29 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTransactionsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('product_id');
-            $table->integer('quantity');
             $table->decimal('total', 10, 2);
-            $table->string('status')->default('pending');
+            $table->string('name');
+            $table->string('address');
+            $table->string('phone');
+            $table->string('zip');
+            $table->text('instructions')->nullable();
+            $table->string('card_number');
+            $table->string('expiry_date');
+            $table->string('cvc');
+            $table->string('status');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -29,11 +33,9 @@ class CreateTransactionsTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('transactions');
     }
-}
+};

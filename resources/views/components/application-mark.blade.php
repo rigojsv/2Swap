@@ -1,1 +1,1 @@
-<img src="img/icono.png" style="width: 36px; height: 36px;">
+<img src="{{ asset('img/logo.png') }}" style="width: 90px; height: 60px;">

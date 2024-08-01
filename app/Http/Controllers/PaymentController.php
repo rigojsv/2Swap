@@ -21,41 +21,57 @@ class PaymentController extends Controller
     }
 
     public function processPayment(Request $request)
-    {
-        // Validar los datos del formulario de pago
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
-            'phone' => 'required|string|size:10',
-            'zip' => 'required|string|size:5',
-            'instructions' => 'nullable|string',
-            'card_number' => 'required|string|size:16',
-            'expiry_date' => 'required|string|size:5',
-            'cvc' => 'required|string|size:3',
+{
+    // Validar los datos del formulario
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'address' => 'required|string|max:255',
+        'phone' => 'required|string|max:10',
+        'zip' => 'required|string|max:5',
+        'instructions' => 'nullable|string',
+        'card_number' => 'required|string|size:16',
+        'expiry_date' => 'required|string|size:5',
+        'cvc' => 'required|string|size:3',
+    ]);
+
+    // Obtener el carrito del usuario
+    $cart = Cart::where('user_id', Auth::id())->first();
+
+    if (!$cart) {
+        return redirect()->route('paymentcart')->with('error', 'El carrito está vacío.');
+    }
+
+    // Procesar cada ítem del carrito
+    foreach ($cart->items as $item) {
+        // Crear una transacción
+        Transaction::create([
+            'user_id' => Auth::id(),
+            'product_id' => $item->product_id,
+            'total' => $item->product->price * $item->quantity,
+            'name' => $request->input('name'),
+            'address' => $request->input('address'),
+            'phone' => $request->input('phone'),
+            'zip' => $request->input('zip'),
+            'instructions' => $request->input('instructions'),
+            'card_number' => $request->input('card_number'),
+            'expiry_date' => $request->input('expiry_date'),
+            'cvc' => $request->input('cvc'),
+            'status' => 'completed', // Puedes cambiar el estado según tu lógica
         ]);
 
-        // Obtener el carrito del usuario
-        $cart = Cart::where('user_id', Auth::id())->first();
-
-        if (!$cart || $cart->items->isEmpty()) {
-            return redirect()->route('cart.view')->with('error', 'No hay artículos en el carrito.');
+        // Actualizar el estado del producto a 'sold'
+        $product = Product::find($item->product_id);
+        if ($product) {
+            $product->status = 'sold';
+            $product->save();
         }
-
-        // Guardar la transacción para cada ítem del carrito
-        foreach ($cart->items as $item) {
-            Transaction::create([
-                'user_id' => Auth::id(),
-                'product_id' => $item->product_id,
-                'quantity' => $item->quantity,
-                'total' => $item->product->price * $item->quantity,
-                'status' => 'completed',
-            ]);
-        }
-
-        // Vaciar el carrito después del pago
-        $cart->items()->delete();
-        
-        // Mostrar mensaje de éxito
-        return redirect()->route('orders.index')->with('success', 'Pago realizado con éxito. ¡Gracias por su compra!');
     }
+
+    // Vaciar el carrito
+    $cart->items()->delete();
+    $cart->delete();
+
+    // Redirigir con mensaje de éxito
+    return redirect()->route('orders.index')->with('success', 'Pedido realizado con éxito.');
+}
 }

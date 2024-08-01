@@ -17,4 +17,12 @@ class OrderController extends Controller
         // Pasar las transacciones a la vista 'orders.index'
         return view('dashboard', compact('orders'));
     }
+
+    public function markReceived($id)
+    {
+        $order = Transaction::findOrFail($id);
+        $order->update(['status' => 'delivered']);
+
+        return redirect()->back()->with('success', 'Pedido marcado como recibido.');
+    }
 }

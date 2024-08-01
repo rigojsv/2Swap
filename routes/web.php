@@ -52,5 +52,22 @@ Route::middleware([
         return view('publications');
     })->name('publications');
 
-
+    Route::get('/newproduct', function () {
+        return view('newproduct');
+    });
+    
+    Route::middleware([
+        'auth:sanctum',
+        config('jetstream.auth_session'),
+        'verified',
+    ])->group(function () {
+        Route::get('/newproduct', [ProductController::class, 'create'])->name('product.create');
+        Route::post('/newproduct', [ProductController::class, 'store'])->name('product.store');
+        // Ruta para la pÃ¡gina de pago
+    Route::get('/pago', [ProductController::class, 'showPaymentPage'])->name('payment.page');
+    
+    // Ruta para procesar el pago
+    Route::post('/pago', [ProductController::class, 'processPayment'])->name('payment.process');
+    
+    });
 });

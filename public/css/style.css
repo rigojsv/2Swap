@@ -221,6 +221,13 @@ footer .border-light {
     align-items: center;
     overflow: hidden;
 }
+ /*CART*/
+
+
+ .texto {
+    margin: 0 !important;
+    text-align: center !important;
+ }
 
 
 

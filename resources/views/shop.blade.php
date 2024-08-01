@@ -99,8 +99,12 @@
                                             <li><a class="btn btn-success text-white mt-2"
                                                     href="{{ route('shop.show', $product->id) }}"><i
                                                         class="far fa-eye"></i></a></li>
-                                            <li><a class="btn btn-success text-white mt-2" href="/cart"><i
-                                                        class="fas fa-cart-plus"></i></a></li>
+                                            <li><form action="{{ route('cart.add', $product->id) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn btn-success text-white mt-2">
+                                                    <i class="fas fa-cart-plus"></i>
+                                                </button>
+                                            </form></li>
                                         </ul>
                                     </div>
                                 </div>

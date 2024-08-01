@@ -8,6 +8,13 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
+                <!-- Botón para crear una nueva publicación -->
+                <div class="flex justify-end mb-4">
+                    <a href="{{ route('product.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Crear nueva publicación
+                    </a>
+                </div>
+
                 <!-- Lista de publicaciones -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Repetir este bloque para cada publicación -->
@@ -27,3 +34,4 @@
         </div>
     </div>
 </x-app-layout>
+
